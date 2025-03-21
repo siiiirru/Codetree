@@ -1,11 +1,10 @@
 n = int(input())
 
 def print_square(N):
-    i=1
+    i=0
     for _ in range(N):
         for _ in range(N):
-            if i>9: i=1
-            print(i,end=" ")
+            print(i%9+1,end=" ")
             i+=1
         print()
 
