@@ -2,10 +2,10 @@ n, m = map(int, input().split())
 
 # Please write your code here.
 def GCD(n,m):
-    n,m=m,n%m
-    if m==0 : return n
-    else : return GCD(n,m)
-    
+    while m>0:
+        n,m=m,n%m
+    return n
+
 def LCM(n,m):
     return n*m//GCD(n,m)
     
