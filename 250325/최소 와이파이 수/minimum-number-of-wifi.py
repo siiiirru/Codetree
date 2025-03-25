@@ -3,7 +3,7 @@ arr = list(map(int, input().split()))
 
 # Please write your code here.
 cnt=0
-for i in range(0,n,m*2):
+for i in range(0,n,m*2+1):
     if arr[i]==0:
         continue
     for j in range (i,i+m*2):
