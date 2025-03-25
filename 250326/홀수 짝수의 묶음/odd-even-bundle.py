@@ -21,7 +21,8 @@ else:
         result=even*2
         diff=odd-even
         if diff%2==0:
-            result+=diff//2+1
+            if diff==4: result+=1
+            else :result+=diff//2
         elif (diff//2)%2==0: result+=diff//2+1
         else : result+=diff//2
 
