@@ -29,9 +29,6 @@ while(True):
             odd-=1
             result+=1
         else : 
-            if even:
-                result+=1
-                break
-            else : break
+            break
 
 print (result)
