@@ -10,7 +10,7 @@ while i<n:
         continue
     for j in range (i,i+m*2):
         if j>=n: break
-        if arr[j]==1: 
+        else if arr[j]==1: 
             cnt+=1
             i+=m*2+1
             break
