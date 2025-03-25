@@ -19,8 +19,10 @@ else:
     # 홀, 짝 중 하나의 갯수가 0이 아닌 경우
     if diff!=N: 
         result=min(odd,even)*2
-        if diff%2==0: result+=diff//2
-        else : result+=diff//2+1
+        if odd>even:
+            if diff%2==0: result+=diff//2
+            else : result+=diff//2+1
+        else : result+=1
     elif odd==N: result=N//2
     else : result=1 
     
