@@ -7,6 +7,6 @@ def GCD(n,m):
     return n
 
 def LCM(n,m):
-    return n*m//GCD(n,m)
+    return int(n*m/GCD(n,m))
     
 print(LCM(n,m))
