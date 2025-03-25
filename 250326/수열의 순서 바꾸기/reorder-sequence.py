@@ -40,7 +40,7 @@ if sequence != sorted_sequence:
                     sequence.insert(insert_index+1,val)
                     count+=1
                     break
-                if past_tail < val :
+                if past_tail < val and val != max_val:
                     sequence.insert(-1,val)
                     count+=1
                     break
