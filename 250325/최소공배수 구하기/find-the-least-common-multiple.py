@@ -1,12 +1,12 @@
 n, m = map(int, input().split())
 
 # Please write your code here.
-def GCD(n,m):
-    while m>0:
-        n,m=m,n%m
-    return n
+def GCD(a,b):
+    while b>0:
+        a,b=b,a%b
+    return a
 
-def LCM(n,m):
-    return int(n*m/GCD(n,m))
+def LCM(a,b):
+    return a*b//GCD(a,b)
     
 print(LCM(n,m))
