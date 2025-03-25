@@ -12,18 +12,26 @@ for i in range(N):
     else :
         odd+=1
 
-if 0<=(even - odd)<2:
-    result=N
-else:
-    if even>odd:
-        result=odd*2+1
+while(True):
+    if result%2==0:
+        if even:
+            even-=1
+            result+=1
+        elif odd>=2 :
+            odd-=2
+            result+=1
+        else :
+            if odd>0: 
+                result-=1
+            break
     else :
-        result=even*2
-        diff=odd-even
-        if diff%2==0:
-            if diff==4: result+=1
-            else :result+=diff//2
-        elif (diff//2)%2==0: result+=diff//2+1
-        else : result+=diff//2
+        if odd:
+            odd-=1
+            result+=1
+        else : 
+            if even:
+                result+=1
+                break
+            else : break
 
 print (result)
