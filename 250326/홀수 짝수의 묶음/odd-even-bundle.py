@@ -23,7 +23,9 @@ else:
             if diff%2==0: result+=diff//2
             else : result+=diff//2+1
         else : result+=1
-    elif odd==N: result=N//2
+    elif odd==N: 
+        result=N//2
+        if N%2==0:result+=1
     else : result=1 
     
 print (result)
