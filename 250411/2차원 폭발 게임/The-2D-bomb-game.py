@@ -36,22 +36,28 @@ def fall():
         for y in range(n):
             numbers_2d[y][x]=tmp[y]
 
+# 터질 게 없을 때 까지 터트리기
+def allpop():
+    while True:
+            before = [row[:] for row in numbers_2d]  # 이전 상태 저장
+            pop()
+            fall()
+            if numbers_2d == before:  # 변화가 없으면 멈춤
+                break
 
 def boom(): 
     if (n==1 and m==1): return 0
     global numbers_2d
     for a in range(k):
-        pop()
-        fall()
-        pop()
+        allpop()
         fall()
             
         #회전
         numbers_2d=[list(row) for row in zip(*numbers_2d[::-1])]
         
         fall()
+    allpop()
     
-    pop()
 
     return sum(1 for row in numbers_2d for x in row if x>0)
 
