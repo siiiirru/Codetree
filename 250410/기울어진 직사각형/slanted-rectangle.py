@@ -3,46 +3,91 @@ grid = [list(map(int, input().split())) for _ in range(n)]
 
 # Please write your code here.
 
+
+'''
+제일 위의 꼭지점(dot)이 이동함.
+     * (dot)
+  one four
+ *       *
+  two three
+     *
+이 순서로 순회하며 숫자를 합해서 최대값을 구함
+three는 최대로 one이 이동한 거리만큼만 이동 가능.
+four는 최대로 two가 이동한 거리만큼만 이동 가능.
+'''
+
 max_result=0
 
-# 제일 위의 꼭지점이 이동함. 아래로만 영역 확장
-# y축으로 이동 가능한 범위
+
+# 꼭지점 y축 이동
 for y in range(n-2):
-    #x축으로 이동 가능한 범위
+    # 꼭지점 x축 이동
     for x in range(1,n-1):
-        # 제일 작은 범위 다이아몬드 합산
-        top = grid[y][x]
-        left = grid[y+1][x-1]
-        right = grid[y+1][x+1]
-        bottom = grid[y+2][x]
-        diamond = top+left+right+bottom
-        if diamond > max_result:
-            max_result = diamond
+        dot = grid[y][x]
+        
+        # y축 아래로 직사각형을 그릴 수 있다면
+        if y<n-2:
 
-        # y축 아래로 확장이 가능하다면
-        if y<n-3:
-            # py는 확장 블록 중 제일 위의 y위치, pxl은 왼쪽 확장 블록 제일 위의 x위치, pxr은 오른쪽 확장 블록 제일 위의 x위치
-            py = y+2
-            pxl = x-2
-            pxr = x+2
-            prsum = diamond
-            plsum = diamond
-            while py < n-1 :
-                #왼쪽 아래 확장
-                if pxl >= 0:
-                    plsum += grid[py][pxl] + grid[py+1][pxl+1]
-                    if plsum > max_result :
-                        max_result = plsum
-                    pxl-=1
-                
-                #오른쪽 아래 확장
-                if pxr < n :
-                    prsum += grid[py][pxr] + grid[py+1][pxr-1]
-                    if prsum > max_result :
-                        max_result = prsum
-                    pxr+=1
+            # one 
+            oneY, oneX = y+1 , x-1
+            one = dot
+            one_count = 0 # one이 이동한 횟수
+            while oneY < n-1 and oneX >= 0 :
+                one += grid[oneY][oneX]
+                one_count += 1
+                #print("one이동",grid[oneY][oneX])
 
-                py+=1
+                # two
+                twoY, twoX = oneY+1, oneX+1
+                two = one
+                two_count = 0 # two가 이동한 횟수
+                while twoY < n and twoX < n-1:
+                    two += grid[twoY][twoX]
+                    two_count +=1
+                    #print("two이동", grid[twoY][twoX])
+
+                    # three
+                    threeY, threeX = twoY-1, twoX+1
+                    three = two
+                    three_count = 0
+                    isbreak = False
+                    # one이 간 거리까지 이동
+                    while three_count < one_count:
+                        three += grid[threeY][threeX]
+                        three_count+=1
+                        if three_count != one_count:
+                            threeY -= 1
+                            threeX += 1
+                        # 갈 수 없으면 다시 one으로 회귀
+                        if  threeX > n-1:
+                            isbreak = True
+                            break
+                    if isbreak :
+                        break
+
+                    # four
+                    fourY, fourX = threeY-1, threeX-1
+                    four = three
+                    four_count = 0
+                    # two가 간 거리까지 이동
+                    while four_count < two_count:
+                        four += grid[fourY][fourX]
+                        four_count+=1
+                        if four_count != two_count:
+                            fourY -= 1
+                            fourX -= 1
+                    
+                    # dot에 한번 더 갔으니 빼주기
+                    four-=dot
+
+                    if four > max_result:
+                        max_result = four
+
+                    twoX+=1
+                    twoY+=1
+
+                oneY+=1
+                oneX-=1
 
 print(max_result)
 
