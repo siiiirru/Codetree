@@ -6,7 +6,6 @@ def pop():
     for x in range(n): #x축
         same_locate=[]
         same_locate.append((0,x))
-
         for y in range(1,n): #y축
             if numbers_2d[y][x]==numbers_2d[same_locate[0][0]][same_locate[0][1]] and numbers_2d[y][x] != 0:
                 same_locate.append((y,x))
@@ -20,10 +19,6 @@ def pop():
                         numbers_2d[locate[0]][locate[1]]=0
                 same_locate.clear()
                 same_locate.append((y,x))
-
-
-            
-            
 
 def fall():
     for x in range(n):
@@ -42,19 +37,21 @@ def fall():
             numbers_2d[y][x]=tmp[y]
 
 
-# Please write your code here.
-for a in range(k):
-
-    pop()
-    # for a in numbers_2d:
-    #     print(*a)
-    fall()
+def boom(): 
+    global numbers_2d
+    if (n==1): return 0
+    else :
+        for a in range(k):
+            pop()
+            fall()
+                
+            #회전
+            numbers_2d=[list(row) for row in zip(*numbers_2d[::-1])]
+            
+            fall()
         
-    #회전
-    numbers_2d=[list(row) for row in zip(*numbers_2d[::-1])]
-    
-    fall()
+        pop()
 
-pop()
+        return sum(1 for row in numbers_2d for x in row if x>0)
 
-print(sum(1 for row in numbers_2d for x in row if x>0))
+print(boom())
