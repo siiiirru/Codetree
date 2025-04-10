@@ -3,6 +3,7 @@ numbers_2d = [list(map(int, input().split())) for _ in range(n)]
 
 def pop():
     #터지기
+    is_poped=False
     for x in range(n): #x축
         same_locate=[]
         same_locate.append((0,x))
@@ -12,13 +13,16 @@ def pop():
                 if y==n-1 and len(same_locate)>=m:
                     for locate in same_locate:
                         numbers_2d[locate[0]][locate[1]]=0
+                        is_poped=True
                     same_locate.clear()
             else: 
                 if len(same_locate)>=m:
                     for locate in same_locate:
                         numbers_2d[locate[0]][locate[1]]=0
+                        is_poped=True
                 same_locate.clear()
                 same_locate.append((y,x))
+    return is_poped
 
 def fall():
     for x in range(n):
@@ -38,15 +42,13 @@ def fall():
 
 # 터질 게 없을 때 까지 터트리기
 def allpop():
-    while True:
-            before = [row[:] for row in numbers_2d]  # 이전 상태 저장
-            pop()
-            fall()
-            if numbers_2d == before:  # 변화가 없으면 멈춤
-                break
+    while pop():
+        fall()
 
 def boom(): 
-    if ((n==1 and m==1) or m==1): return 0
+    # m이 1이면 다 터지기 때문에 0
+    if (m==1): return 0
+
     global numbers_2d
     for a in range(k):
         allpop()
