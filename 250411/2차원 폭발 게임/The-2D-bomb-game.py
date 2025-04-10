@@ -43,6 +43,8 @@ def boom():
     for a in range(k):
         pop()
         fall()
+        pop()
+        fall()
             
         #회전
         numbers_2d=[list(row) for row in zip(*numbers_2d[::-1])]
