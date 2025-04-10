@@ -46,7 +46,7 @@ def allpop():
                 break
 
 def boom(): 
-    if (n==1 and m==1): return 0
+    if ((n==1 and m==1) or m==1): return 0
     global numbers_2d
     for a in range(k):
         allpop()
