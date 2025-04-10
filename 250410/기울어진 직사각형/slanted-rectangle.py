@@ -6,14 +6,16 @@ grid = [list(map(int, input().split())) for _ in range(n)]
 
 '''
 제일 위의 꼭지점(dot)이 이동함.
+
      * (dot)
   one four
  *       *
   two three
      *
+
 이 순서로 순회하며 숫자를 합해서 최대값을 구함
-three는 최대로 one이 이동한 거리만큼만 이동 가능.
-four는 최대로 two가 이동한 거리만큼만 이동 가능.
+three는 one이 이동한 거리만큼 이동. (갈 수 없는 경우 three,two 취소하고 one으로 돌아감)
+four는 two가 이동한 거리만큼 이동. dot에 도착하면 dot값은 두 번 더했으니 한번 빼줌
 '''
 
 max_result=0
