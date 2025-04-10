@@ -38,20 +38,19 @@ def fall():
 
 
 def boom(): 
+    if (n==1 and m==1): return 0
     global numbers_2d
-    if (n==1): return 0
-    else :
-        for a in range(k):
-            pop()
-            fall()
-                
-            #회전
-            numbers_2d=[list(row) for row in zip(*numbers_2d[::-1])]
-            
-            fall()
-        
+    for a in range(k):
         pop()
+        fall()
+            
+        #회전
+        numbers_2d=[list(row) for row in zip(*numbers_2d[::-1])]
+        
+        fall()
+    
+    pop()
 
-        return sum(1 for row in numbers_2d for x in row if x>0)
+    return sum(1 for row in numbers_2d for x in row if x>0)
 
 print(boom())
