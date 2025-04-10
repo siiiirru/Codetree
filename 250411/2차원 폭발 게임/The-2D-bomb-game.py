@@ -5,23 +5,22 @@ def pop():
     #터지기
     is_poped=False
     for x in range(n): #x축
-        same_locate=[]
-        same_locate.append((0,x))
+        same_start=0
+        same_count=1
         for y in range(1,n): #y축
-            if numbers_2d[y][x]==numbers_2d[same_locate[0][0]][same_locate[0][1]] and numbers_2d[y][x] != 0:
-                same_locate.append((y,x))
-                if y==n-1 and len(same_locate)>=m:
-                    for locate in same_locate:
-                        numbers_2d[locate[0]][locate[1]]=0
+            if numbers_2d[y][x]==numbers_2d[same_start][x] and numbers_2d[y][x] != 0:
+                same_count+=1
+                if y==n-1 and same_count>=m:
+                    for i in range(same_count):
+                        numbers_2d[same_start+i][x]=0
                         is_poped=True
-                    same_locate.clear()
             else: 
-                if len(same_locate)>=m:
-                    for locate in same_locate:
-                        numbers_2d[locate[0]][locate[1]]=0
+                if same_count>=m:
+                     for i in range(same_count):
+                        numbers_2d[same_start+i][x]=0
                         is_poped=True
-                same_locate.clear()
-                same_locate.append((y,x))
+                same_count=1
+                same_start=y
     return is_poped
 
 def fall():
