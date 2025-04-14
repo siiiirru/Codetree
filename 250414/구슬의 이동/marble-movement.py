@@ -67,8 +67,8 @@ class Marbles :
                 value.sort(key=lambda x : (v[x],x))
                 
                 for i in range(len(value)-k):
-                    a[i] = False
-                    self.marbles[key].remove(i)
+                    a[value[i]] = False
+                    self.marbles[key].remove(value[i])
 
 def move_marbles():
     marbles=Marbles()
