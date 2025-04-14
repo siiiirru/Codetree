@@ -25,25 +25,28 @@ class Marbles :
     def move(self,i):
         if a[i]==True: 
             #이전 위치는 위치 딕셔너리에서 지우기
-            if len(self.marbles[(r[i],c[i])])>1:
-                self.marbles[(r[i],c[i])].remove(i)
-            else: del self.marbles[(r[i],c[i])]
+            before_pos = (r[i],c[i])
+            if len(self.marbles[before_pos])>1:
+                self.marbles[before_pos].remove(i)
+            else: del self.marbles[before_pos]
             # 각 구슬들의 속도만큼 한칸씩 이동하며 벽에 부딪히는지 검사
             for block in range (v[i]):
-                dy=r[i]+dir[d[i]][0]
-                dx=c[i]+dir[d[i]][1]
+                now_d=d[i]
+                dy=r[i]+dir[now_d][0]
+                dx=c[i]+dir[now_d][1]
                 # 벽에 부딪혔을 때는 방향 바꿔서 이동
                 if dy<0 or dy>=n or dx<0 or dx>=n :
-                    d[i]=self.change_dir(d[i])
-                    dy=r[i]+dir[d[i]][0]
-                    dx=c[i]+dir[d[i]][1]
+                    now_d = d[i] = self.change_dir(d[i])
+                    dy=r[i]+dir[now_d][0]
+                    dx=c[i]+dir[now_d][1]
                 r[i]=dy
                 c[i]=dx
 
             # 이동한 곳으로 위치 딕셔너리 업데이트
-            if (r[i],c[i]) in self.marbles:
-                self.marbles[(r[i],c[i])].append(i)
-            else: self.marbles[(r[i],c[i])]=[i]
+            now_pos=(r[i],c[i])
+            if (now_pos) in self.marbles:
+                self.marbles[now_pos].append(i)
+            else: self.marbles[now_pos]=[i]
 
     # 방향 전환
     def change_dir(self,original_d):
@@ -58,18 +61,14 @@ class Marbles :
     # 같은 위치에 k이상의 구슬이 있을 경우 삭제
     def remove_same_locate(self):
         for key in list(self.marbles.keys()):
-            while len(self.marbles[key]) > k:
-                # 속도가 낮은 값부터 삭제
+            if len(self.marbles[key]) > k:
+                # 속도, 인덱스 순으로 정렬하여 k개만 남기고 삭제
                 value = self.marbles[key]
-                vlist = [v[i] for i in value]
-                min_val = min(vlist)
-                # 낮은 값이 여러개면 인덱스가 작은 값부터 삭제
-                min_val_index = [i for i in value if v[i] == min_val and a[i]]
-                min_index = min(min_val_index)
-                a[min_index] = False
-                self.marbles[key].remove(min_index)
-                # 같은 위치 구슬 개수 다시 갱신
-                # (이걸로 while 조건에도 바로 반영됨)
+                value.sort(key=lambda x : (v[x],x))
+                
+                for i in range(len(value)-k):
+                    a[i] = False
+                    self.marbles[key].remove(i)
 
 def move_marbles():
     marbles=Marbles()
@@ -77,14 +76,9 @@ def move_marbles():
         for i in range (m):
             marbles.move(i)
         marbles.remove_same_locate()
+    
 
 move_marbles()
-result=0
-for i in a:
-    if i==True:
-        result+=1
 
-print(result) 
-
-
-                            
+active_count = sum(1 for i in a if i)
+print(active_count) 
