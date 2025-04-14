@@ -68,7 +68,8 @@ class Marbles :
                 
                 for i in range(len(value)-k):
                     a[value[i]] = False
-                    self.marbles[key].remove(value[i])
+                
+                self.marbles[key]=value[-k:]
 
 def move_marbles():
     marbles=Marbles()
