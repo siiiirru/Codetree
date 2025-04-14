@@ -30,7 +30,7 @@ def change_dir(original_d):
     }
     return direction_map.get(original_d)
 
-
+print(marbles)
 # 시간의 흐름. 1초부터 시작
 def move_marbles():
     for time in range(t):
@@ -58,24 +58,22 @@ def move_marbles():
                 if (r[i],c[i]) in marbles:
                     marbles[(r[i],c[i])].append(i)
                 else: marbles[(r[i],c[i])]=[i]
-
+        print(marbles)
         # 충돌 시 사라짐
-        for value in marbles.values():
-            while len(value)>k:
-                # 속도가 작은 것 부터 비활성화
+        # 여기서 key로 바로 접근해야 안전함. 
+        # for value in marbles.values() 처럼 values로 접근하면 안됨(marbles의 값 수정시 문제생김)
+        for key in list(marbles.keys()):
+            while len(marbles[key]) > k:
+                value = marbles[key]
                 vlist = [v[i] for i in value]
-                min_val=min(vlist)
-                min_val_index=[ind for ind,val in enumerate(v) if val==min_val and a[ind] is True]
-                min_index=0
-                # 작은 값이 여러개면 인덱스 값이 낮은 값을 비활성화
-                if len(min_val_index)>1:
-                    min_index=min(min_val_index)
-                else :
-                    min_index=min_val_index[0]
-                a[min_index]=False
-                # 위치 지우기
-                marbles[(r[min_index],c[min_index])].remove(min_index)
-
+                min_val = min(vlist)
+                min_val_index = [i for i in value if v[i] == min_val and a[i]]
+                min_index = min(min_val_index)
+                a[min_index] = False
+                print("지워진 값:", min_index)
+                marbles[key].remove(min_index)
+                # 같은 위치 구슬 개수 다시 갱신
+                # (이걸로 while 조건에도 바로 반영됨)
 
 move_marbles()
 result=0
