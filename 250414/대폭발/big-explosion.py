@@ -11,24 +11,20 @@ boom_list=[]
 boom_list.append((r-1,c-1))
 
 
-def print_grid():
-    for i in grid:
-        print(*i)
-    print("---")
-
-
 def lets_boom ():
     for time in range (1,m+1):
+        # 새로운 초가 시작할 시점의 폭탄 개수로 새로운 폭탄을 추가함
         boom_count=len(boom_list)
         for i in range (boom_count):
+            # 4방향으로 폭탄 추가
             for d in dir:
                 dy=boom_list[i][0]+d[0]*(2**(time-1))
                 dx=boom_list[i][1]+d[1]*(2**(time-1))
+                # 폭탄을 추가할 수 있으면 추가
                 if dy>=0 and dy <n and dx>=0 and dx<n and grid[dy][dx]==0:
                     grid[dy][dx]=1
                     boom_list.append((dy,dx))
-        # print(time)
-        # print_grid()
+
                     
 
                     
