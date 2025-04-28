@@ -31,25 +31,28 @@ def match(edges):
         match_arr[i]=line
     return match_arr
 
+min_line=m
 #사다리 한줄씩 그리기
-def draw_min_line(edges,line_count,min_line):
+def draw_min_line(edges,line_count):
+    global min_line
     if line_count>=min_line:
-        return m
-    # 최종매치되면 라인 값 반환
+        return 
+    # 최종매치되면 최소사다리선 개수 업데이트
     if match(edges)==first_match_arr:
         min_line=min(min_line,line_count)
-        return min_line
+        return 
     
     # 라인 그리기
     for i in range (n-1):
         edges.append((i+1,line_count+1))
-        min_line=min(min_line,draw_min_line(edges,line_count+1,min_line))
+        draw_min_line(edges,line_count+1)
         if len(edges)>0:
             edges.pop()
 
-    return min_line
+    return
 
 
 first_match_arr=match(edges)
 new_edges=list()
-print(draw_min_line(new_edges,0,m))
+draw_min_line(new_edges,0)
+print(min_line)
