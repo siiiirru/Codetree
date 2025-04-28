@@ -34,20 +34,19 @@ def match(edges):
 #사다리 한줄씩 그리기
 def draw_min_line(edges,line_count,min_line):
     if line_count>=min_line:
-        edges.pop()
         return m
     # 최종매치되면 라인 값 반환
     if match(edges)==first_match_arr:
         min_line=min(min_line,line_count)
-        if len(edges)>0:
-            edges.pop()
         return min_line
     
     # 라인 그리기
     for i in range (n-1):
         edges.append((i+1,line_count+1))
         min_line=min(min_line,draw_min_line(edges,line_count+1,min_line))
-    
+        if len(edges)>0:
+            edges.pop()
+
     return min_line
 
 
