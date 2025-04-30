@@ -4,16 +4,34 @@ weight = [list(map(int, input().split())) for _ in range(n)]
 ans=0
 # Please write your code here.
 
-# 물건 선택 후 가치 반환 
+# 물건들 합이 c를 넘을 때 물건 고르기
+def choice(items, i, max_sum, choice_items):
+    if i >= len(items): 
+        return max_sum  #더 이상 탐색할 물건이 없다면 현재까지의 max_sum을 반환
+
+    #1. 합이 c 이하인지
+    if sum(choice_items) + items[i] <= c: 
+        #2. 가치 최대값인지
+        choice_items.append(items[i])
+
+        value_sum = sum(x ** 2 for x in choice_items)  
+        if value_sum > max_sum:
+            max_sum=value_sum
+
+        max_sum=choice(items, i+1, max_sum, choice_items) 
+
+        choice_items.pop()
+
+    max_sum = choice(items, i+1, max_sum, choice_items) 
+
+    return max_sum
+
+# 물건 가치 반환 
 def get_value(items):
-    value=0
-    items_sum=0
-    for idx,item in enumerate (items):
-        items_sum+=item
-        if(items_sum)>c:
-            break
-        value+=item**2
-    return value
+    if sum(items)>c:
+        return choice(items,0,0,[])
+    return sum(x**2 for x in items)
+
 
 # 최대가치 갱신하기
 def update_max(a,b):
@@ -62,5 +80,6 @@ def go (a,b):
             #A 다음 B가 끝에 도달하면 종료
             else: finish=True
 
+#A와 B의 초기 위치를 전달
 go((0,0),move((0,0+m)))
 print(ans)
