@@ -61,9 +61,8 @@ finish=False
 def go (a,b):
     global finish
     #B가 끝에 왔으면 return
-    if b is None or a is None :
+    if b is None or a is None or finish:
         return
-
     update_max(a,b)
 
     #A는 두고 B만 움직임
@@ -81,5 +80,5 @@ def go (a,b):
             else: finish=True
 
 #A와 B의 초기 위치를 전달
-go((0,0),move((0,0+m)))
+go((0,0),move((0,0+m-1)))
 print(ans)
