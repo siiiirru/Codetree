@@ -10,9 +10,10 @@ dp=[1]*(n+1)
 # dp[1] = 1
 # dp[2]=dp[1]*2
 # dp[3]=dp[2]*2+dp[1]
-# dp[4]=dp[3]*2+(dp[0]*dp[2])*2
-# dp[5]=dp[4]*2+(dp[0]*dp[3])*2+(dp[1]*dp[2])*2
-# dp[i]=(dp[i-1]*2)+(dp[0]*dp[i-2])+(dp[1]*dp[i-3])*2
+# dp[4]=dp[3]*2+(dp[1]*dp[2])*2
+# dp[5]=dp[4]*2+(dp[1]*dp[3])*2+(dp[1]*dp[2])*2
+# dp[6]=dp[5]*2+(dp[1]*dp[4])*2+(dp[2]*dp[3])*2
+# dp[i]=(dp[0]*dp[i-1])*2+(dp[1]*dp[i-2])*2+(dp[1]*dp[i-3])*2
 
 for i in range (1, n+1):
     if i<=2:
@@ -21,9 +22,9 @@ for i in range (1, n+1):
         dp[i]=5
     else :
         sum=0
-        for j in range((i//2)+(i%2)):
-            if j==((i//2)-1):sum+=dp[i-1]*2
-            else: sum+=(dp[j]*dp[i-(j+2)])*2
+        for j in range(0,(i//2)+(i%2)):
+            if j==i-(j+1) : sum+=(dp[j]*dp[j])
+            else : sum+=(dp[j]*dp[i-(j+1)])*2
         dp[i]=sum
 
 print (dp[n])
